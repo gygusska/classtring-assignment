@@ -4,8 +4,10 @@ import reportWebVitals from './reportWebVitals'
 import { BrowserRouter } from 'react-router-dom'
 import { Provider } from 'react-redux'
 import { QueryClientProvider, QueryClient } from 'react-query'
+import { createGlobalStyle } from 'styled-components'
+import reset from 'styled-reset'
 
-import Routes from './routes'
+import App from './routes'
 
 const queryClient = new QueryClient()
 
@@ -14,7 +16,7 @@ root.render(
   <React.StrictMode>
     <QueryClientProvider client={queryClient}>
       <BrowserRouter>
-        <Routes />
+        <App />
       </BrowserRouter>
     </QueryClientProvider>
   </React.StrictMode>

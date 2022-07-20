@@ -1,17 +1,17 @@
 import { useQuery } from 'react-query'
-import { getOpenDiseaseAPi } from 'services/quiz'
+import { getOpenQuizAPi } from 'services/quiz'
 
 const useQueryQuiz = () => {
   const { data } = useQuery(
-    'key',
+    ['getOpenQuizAPi'],
     () =>
-      getOpenDiseaseAPi().then((res: any) => {
+      getOpenQuizAPi().then((res: any) => {
         // eslint-disable-next-line no-console
         console.count('react-query API 호출')
         return res.data.results
       }),
     {
-      staleTime: 2 * 60 * 1000,
+      staleTime: Infinity,
       cacheTime: Infinity,
       suspense: true,
       retry: 2,

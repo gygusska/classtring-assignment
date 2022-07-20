@@ -1,12 +1,20 @@
-import Quiz from './Quiz'
+import Layout from 'components/Layout'
+import useQueryQuiz from 'hooks/useGetQuiz'
+import { Routes, Route } from 'react-router-dom'
+import QuizGame from './QuizGame'
+import QuizResult from './QuizResult'
+import QuizStart from './QuizStart'
 
-function index() {
+const App = () => {
   return (
-    <>
-      <div>index</div>
-      <Quiz />
-    </>
+    <Routes>
+      <Route element={<Layout />}>
+        <Route path='/' element={<QuizStart />} />
+        <Route path='/game' element={<QuizGame />} />
+        <Route path='/result' element={<QuizResult />} />
+      </Route>
+    </Routes>
   )
 }
 
-export default index
+export default App
