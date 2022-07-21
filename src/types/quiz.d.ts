@@ -10,4 +10,6 @@ export interface IQuizItems {
   question: string
   correct_answer: string
   incorrect_answers: string[]
+  correct?: boolean
+  selectedAnswer?: string
 }

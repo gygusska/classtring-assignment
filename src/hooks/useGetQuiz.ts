@@ -2,7 +2,7 @@ import { useQuery } from 'react-query'
 import { getOpenQuizAPi } from 'services/quiz'
 
 const useQueryQuiz = () => {
-  const { data } = useQuery(
+  const { data, refetch } = useQuery(
     ['getOpenQuizAPi'],
     () =>
       getOpenQuizAPi().then((res: any) => {
@@ -11,6 +11,8 @@ const useQueryQuiz = () => {
         return res.data.results
       }),
     {
+      enabled: false,
+      refetchOnWindowFocus: false,
       staleTime: Infinity,
       cacheTime: Infinity,
       suspense: true,
@@ -18,7 +20,7 @@ const useQueryQuiz = () => {
     }
   )
 
-  return { data }
+  return { data, refetch }
 }
 
 export default useQueryQuiz

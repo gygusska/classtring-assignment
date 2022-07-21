@@ -21,8 +21,9 @@ const MainContainer = styled.main`
   background: rgb(255 255 255 / 0.8);
 `
 const Container = styled.div`
-  width: 940px;
+  width: 900px;
   text-align: center;
+  padding: 0 20px;
 `
 
 const StyledIcon = styled(QuizIcon)`

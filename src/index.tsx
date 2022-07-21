@@ -2,10 +2,8 @@ import React from 'react'
 import ReactDOM from 'react-dom/client'
 import reportWebVitals from './reportWebVitals'
 import { BrowserRouter } from 'react-router-dom'
-import { Provider } from 'react-redux'
 import { QueryClientProvider, QueryClient } from 'react-query'
-import { createGlobalStyle } from 'styled-components'
-import reset from 'styled-reset'
+import { RecoilRoot } from 'recoil'
 
 import App from './routes'
 
@@ -13,13 +11,15 @@ const queryClient = new QueryClient()
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement)
 root.render(
-  <React.StrictMode>
-    <QueryClientProvider client={queryClient}>
-      <BrowserRouter>
-        <App />
-      </BrowserRouter>
-    </QueryClientProvider>
-  </React.StrictMode>
+  <RecoilRoot>
+    <React.StrictMode>
+      <QueryClientProvider client={queryClient}>
+        <BrowserRouter>
+          <App />
+        </BrowserRouter>
+      </QueryClientProvider>
+    </React.StrictMode>
+  </RecoilRoot>
 )
 
 // If you want to start measuring performance in your app, pass a function

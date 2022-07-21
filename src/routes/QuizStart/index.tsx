@@ -1,8 +1,16 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
+import useQueryQuiz from 'hooks/useGetQuiz'
+import React, { useEffect, useState } from 'react'
+import { useQuery } from 'react-query'
+import { Link, useNavigate } from 'react-router-dom'
+import { useRecoilState, useSetRecoilState } from 'recoil'
+import QuizGame from 'routes/QuizStart/QuizGame'
+import { getOpenQuizAPi } from 'services/quiz'
+import { quizListState } from 'states/quizState'
 import styled from 'styled-components'
+import store from 'storejs'
+import { IQuizItems } from 'types/quiz'
 
-const StyledLink = styled(Link)`
+const StartButton = styled.button`
   display: inline-block;
   font-size: 40px;
   background: rgba(255, 255, 255, 1);
@@ -20,7 +28,37 @@ const StyledLink = styled(Link)`
 `
 
 const QuizStart = () => {
-  return <StyledLink to='/game'>퀴즈 풀기</StyledLink>
+  const navigate = useNavigate()
+  // const [quizList, setQuizListState] = useRecoilState(quizListState)
+  const [showquiz, setShowQuiz] = useState(false)
+
+  const { data, refetch } = useQueryQuiz()
+
+  const handleQuizStart = () => {
+    refetch()
+    setShowQuiz(true)
+  }
+
+  useEffect(() => {
+    store.remove('currentQuizList')
+  }, [])
+
+  useEffect(() => {
+    // setQuizListState(data ?? [])
+    store.set('currentQuizList', data)
+  }, [data])
+
+  return (
+    <div>
+      {showquiz ? (
+        <QuizGame data={data} />
+      ) : (
+        <StartButton type='button' onClick={handleQuizStart}>
+          퀴즈 풀기
+        </StartButton>
+      )}
+    </div>
+  )
 }
 
 export default QuizStart

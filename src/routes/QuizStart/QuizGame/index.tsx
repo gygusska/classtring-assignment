@@ -1,11 +1,16 @@
 import useQueryQuiz from 'hooks/useGetQuiz'
 import { MouseEvent, useCallback, useEffect, useState } from 'react'
 import { NavLink } from 'react-router-dom'
+import { useRecoilValue } from 'recoil'
+import { quizListState } from 'states/quizState'
 import styled, { keyframes } from 'styled-components'
 import { IQuizItems } from 'types/quiz'
 import shuffle from 'utill/shuffle'
 import AnswerCheckModal from './AnswerCheckModal'
 import AnswerItem from './AnswerItem'
+import store from 'storejs'
+import useCounter from 'hooks/useCouter'
+import Counter from './Counter'
 
 const appearAnimation = keyframes`
   from {
@@ -38,13 +43,14 @@ const NextButton = styled.button`
   width: 400px;
   height: 60px;
   line-height: 60px;
-  background: #bf6741;
+  background: #16403a;
   border: none;
   border-radius: 50px;
   font-size: 26px;
   cursor: pointer;
   color: #fff;
   margin-top: 20px;
+  animation: ${appearAnimation} 700ms;
 `
 
 const ResultButton = styled(NavLink)`
@@ -60,55 +66,82 @@ const ResultButton = styled(NavLink)`
   margin-top: 20px;
   text-decoration: none;
 `
+interface IQuizList {
+  data: IQuizItems[]
+}
 
-const Quiz = () => {
-  const { data } = useQueryQuiz()
+interface IFinalInfo {
+  scoreInfo: number
+  selectedAnswer: string[]
+  checkInfo?: string[]
+  count?: number
+}
 
+const Quiz = ({ data }: IQuizList) => {
   const [currentQuiz, setCurrentQuiz] = useState(0)
-  const [score, setScore] = useState(0)
   const [showResults, setShowResults] = useState(false)
   const [showNext, setShowNext] = useState(false)
   const [check, setCheck] = useState('')
   const [checkModal, setCheckModal] = useState(false)
   const [isAnswerClick, setIsAnswerClick] = useState(true)
+  const [finalInfo, setFinalInfo] = useState<IFinalInfo>({
+    scoreInfo: 0,
+    selectedAnswer: [],
+    checkInfo: [],
+    count: 0,
+  })
 
-  // shuffle
   const { question, correct_answer, incorrect_answers } = data[currentQuiz]
   const answerList = shuffle([correct_answer, ...incorrect_answers])
 
-  // eslint-disable-next-line consistent-return
+  useEffect(() => {
+    store.set('finalInfo', [])
+  }, [])
+
   const handleAnswerButtonClick = useCallback(
     (answer: string) => {
-      if (isAnswerClick) setIsAnswerClick(false) // 클릭했다면 이벤트 막기
+      // if (isAnswerClick) setIsAnswerClick(false) // 정답을 클릭했다면 이벤트 막기
 
       if (answer === correct_answer) {
         setCheck('Correct!')
-        setScore(score + 1)
+        setIsAnswerClick(false) // 정답을 클릭했다면 이벤트 막기
+        setFinalInfo((prev) => {
+          return { ...prev, scoreInfo: prev.scoreInfo + 1 }
+        })
       } else {
         setCheck('Incorrect')
       }
       setCheckModal(true)
+      setFinalInfo((prev) => {
+        const newAnswr = [...prev.selectedAnswer]
+        newAnswr[currentQuiz] = answer
+        return { ...prev, selectedAnswer: newAnswr }
+      })
+      // store.set('currentQuizList', data)
 
       if (currentQuiz + 1 < data.length) {
         setShowNext(true)
       } else {
         setShowResults(true)
       }
+      store.set('finalInfo', finalInfo)
     },
-    [correct_answer, currentQuiz, data.length, isAnswerClick, score]
+    [correct_answer, currentQuiz, data.length, finalInfo]
   )
 
   const handleNextQuiz = useCallback(() => {
     const nextQuiz = currentQuiz + 1
+
     if (nextQuiz <= data.length) setCurrentQuiz(nextQuiz)
 
     setShowNext(false)
     setIsAnswerClick(true)
   }, [currentQuiz, data.length])
 
+  const handleFinalButton = useCallback(() => {}, [])
   return (
     <ApperBox>
-      <h2>{currentQuiz}</h2>
+      <Counter />
       <Question>{decodeURIComponent(question)}</Question>
       <AnswerList>
         {answerList.map((item) => {
@@ -126,9 +159,9 @@ const Quiz = () => {
       )}
 
       {checkModal && <AnswerCheckModal check={check} setCheckModal={setCheckModal} />}
-      {/* <h2>정답 : {correct_answer}</h2> */}
-      <h3>정답개수 {score}</h3>
-      <h3>오답갯수 {data.length - score}</h3>
+      {/* <h2>정답 : {correct_answer}</h2>
+      <h3>정답개수 {finalInfo.score}</h3> */}
+
       {showResults && <ResultButton to='/result'>결과 확인하기</ResultButton>}
     </ApperBox>
   )

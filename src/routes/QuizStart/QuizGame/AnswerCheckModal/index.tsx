@@ -1,8 +1,8 @@
-import React, { Dispatch, SetStateAction, useRef } from 'react'
+import { Dispatch, SetStateAction, useRef } from 'react'
 import { useClickAway } from 'react-use'
+import styled from 'styled-components'
 
 import ModalPortal from 'components/Modal/modalPortal'
-import styled from 'styled-components'
 
 const ModalBackground = styled.div`
   position: fixed;
