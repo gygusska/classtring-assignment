@@ -1,70 +1,74 @@
-# Getting Started with Create React App
+# 클래스팅 프론트엔드 과제
+## [Deploy](https://classtring-assignment.vercel.app/) 
+<br>
+<div align='center'>
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+![Kapture 2022-07-22 at 01 58 05](https://user-images.githubusercontent.com/28261736/180271344-c9285359-11b2-4481-90fa-8374e075c9d1.gif)
 
-## Available Scripts
 
-In the project directory, you can run:
+</div>
 
-### `npm start`
+## 기술 스택 및 라이브러리
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+> TypeScript, React, Styled Components
+> storejs, react-use, react-query
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+<br>
 
-### `npm test`
+## 프로젝트 실행 방법
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+1. 레포지토리 클론
 
-### `npm run build`
+```
+git clone https://github.com/gygusska/classtring-assignment.git
+```
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+2. dependencies 설치
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+```
+yarn install
+```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+3. 실행
 
-### `npm run eject`
+```
+yarn start
+```
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+<br>
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## 구현목록
+* 사용자는 '퀴즈 풀기' 버튼을 클릭하여 퀴즈 풀기를 시작할 수 있다.
+* 사용자는 문항에 대한 답안을 4개 보기 중에 선택할 수 있다.
+* 사용자는 답안을 선택하면 다음 문항을 볼 수 있다.
+  * 답안 선택 후 다음 문항 버튼을 볼 수 있다.
+  * 답안이 맞았는지 틀렸는지 바로 알 수 있다.
+  * 다음 문항 버튼을 클릭하여 다음 문항으로 이동할 수 있다.
+* 모든 문항을 다 풀면 사용자는 다음과 같은 결과 정보를 볼 수 있다.
+  * 퀴즈를 마칠 때까지 소요된 시간
+  * 정답 개수
+  * 오답 개수
+* 테스트 작성
+* api 연결
+* Loading 구현
+* portal 정답 알림창 구현
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+## 추가구현
+* 정 오답에 대한 비율을 차트로 표기
+* 다시 풀기
+* 오답 노트
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+## 회고
+첨에는 recoil로 상태관리를 해줬는데 오답노트,다시풀기 기능을 만드려고 보니까 기존 상태관리를 사용할 필요를 못느껴서 나중에 다 빼고 props나 store로 대체했다. 지금은 데이터 구조가 한번에 5문제들로만 쌓이게 되있는데 오답노트,다시풀기 기능 만들때 여러 시험(?)들로 만들예정 
+react-query 사용한 이유는 공부할겸 캐싱할겸 했는데 키값이 따로 없어 요청할때마다 다른값이 넘어와서 캐싱하는 의미가 없어서 아쉬웠다.
+새로고침할때 현재 퀴즈를 유지하고 싶었는데 실패했다 나중에 개선하려고 한다, 디자인은 클래스팅 느낌나게 해봤는데 잘 모르겠다 ㅎㅎ
+스타일드컴포넌트를 사용했는데 컴포넌트별로 관심사 분리가 제대로 안된거 같아서 아쉽다. 너무 라우터 위주로 나눈거 같음
+과제로 시작했지만 기능들을 개발하면서 좋은공부가 됐던거 같다. 미구현기능들도 다 만들예정
 
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+## 미구현목록 
+* 질문 디코딩
+* 정답 화면 퍼블리싱 미구현
+* 테스트 작성 미구현
+* 정 오답에 대한 비율 차트로 표기
+* 다시 풀기
+* 오답 노트
