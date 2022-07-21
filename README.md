@@ -10,7 +10,7 @@
 
 ## 기술 스택 및 라이브러리
 
-> TypeScript, React, Styled Components
+> TypeScript, React, Styled Components <br>
 > storejs, react-use, react-query
 
 <br>
